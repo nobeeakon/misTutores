@@ -6,7 +6,7 @@ export default function({html, state}) {
     return html`
     <header> 
     <nav class="mbs2 mbe1 flex align-items-baseline  pi4">
-    <a href="/" class="pie2">Inicio</a>
+    <a href="/" >Inicio</a>
         <ul class="flex flex-grow justify-content-end align-items-baseline  list-none">
             
 

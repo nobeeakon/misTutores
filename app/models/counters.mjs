@@ -20,13 +20,13 @@ const getDataCounts = async() => {
 
 
 export const viewCountersPageNames = {
-    home: 'home',
-    search: 'search',
-    about: 'about',
-    terms: 'terms',
-    addTutor: 'addTutor',
-    addInstitution: 'addInstitution',
-    tutorInfo: 'tutorInfo',
+    home: 'home_page',
+    search: 'search_page',
+    about: 'about_page',
+    terms: 'terms_page',
+    addTutor: 'addTutor_page',
+    addInstitution: 'addInstitution_page',
+    tutorInfo: 'tutorInfo_page',
 }
 
 export const incrementViewsCounters =  async(page)=> 

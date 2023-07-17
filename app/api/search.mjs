@@ -198,7 +198,27 @@ const getTutorsInInstitution = async (universityId, facultyId) => {
 };
 
 const SEARCH_PAGE_SIZE = 40;
-export const get = [sanitizeQuery, setSessionId, searchInfo];
+export const get = [sanitizeQuery, setSessionId, searchInfoWrapper];
+
+/** @type {import('@enhance/types').EnhanceApiFn} */
+async function searchInfoWrapper(req) {
+  const {session} = req;
+
+  try {
+      const searchData = await searchInfo(req)
+
+      return searchData;
+  }catch(error) {
+    console.error(`Error when searching data: ${error.toString()}`)
+    return {
+        session,
+        json: {
+          error: 'Algo salió mal, por favor intenta de nuevo'
+        },
+      };
+    
+  }
+} 
 
 /** @type {import('@enhance/types').EnhanceApiFn} */
 export async function searchInfo(req) {

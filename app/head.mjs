@@ -15,7 +15,7 @@ export default function Head () {
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
      
-      <title>Mis tutores</title>
+      <title>Mis Tutores</title>
       <meta name="description" content="Evalúa tu experiencia con tu tutor de tesis y ayuda a otros estudiantes que se encuentran en el delicado proceso de escoger tutor.">
 
       ${linkTag()}
