@@ -36,7 +36,7 @@ export default function ({ html }) {
         </div>
         <div>
           <div class="mainImage">
-            <img src="/_public/assets/flying.jpg" />
+            <img src="/_public/assets/flying.jpg" width="350px" height="350px" alt="volando por tus sueños"/>
           </div>
         </div>
       </div>

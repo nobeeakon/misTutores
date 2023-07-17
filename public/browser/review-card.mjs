@@ -162,9 +162,10 @@ class ReviewCard extends HTMLElement {
 
   static get observedAttributes() {
     return [
-      "thumbs-up",
       "message",
+      "thumbs-up",
       "thumbs-down",
+      "flagged",
       "user-id",
       "date-iso-string",
       "tutor-id",
@@ -184,6 +185,9 @@ class ReviewCard extends HTMLElement {
           break;
         case "thumbs-down":
           this.thumbsDownCounter.textContent = this.#getCounterText(newValue);
+          break;
+        case "flagged":
+          this.flaggedCounter.textContent = this.#getCounterText(newValue);
           break;
         case "user-id":
           this.userId = newValue;

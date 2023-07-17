@@ -216,6 +216,7 @@ export default function ({ html, state }) {
      message="${commentItem.comment}"
      thumbs-up="${commentItem.favor}"
      thumbs-down="${commentItem.against}"
+     flagged="${commentItem.flagged}"
      user-id="aaaa"
      date-iso-string="${commentItem.createdAt}"
    ></my-message></div>`
@@ -229,7 +230,7 @@ export default function ({ html, state }) {
       <style>
         .likertScales {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+          grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
           gap: var(--space-3) var(--space-5);
         }
 
