@@ -71,7 +71,7 @@ export async function get(req) {
         };
     } catch(error) {
         
-        console.log('Error in SearchByName', error.toString())
+        console.error('Error in SearchByName', error.toString())
 
         return {
           json: {

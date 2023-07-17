@@ -72,7 +72,7 @@ export default function ({ html, state }) {
     </style>
 
     <div class="likertWrapper">
-      <div class="mbe-1 likertScaleMainTitle">${title}</div>
+      <div class="mbe-1 likertScaleMainTitle pie-2">${title}</div>
 
       <div class="likertScaleWrapper">
         <span class=" text-1 likertScaleMinTitle"> ${min} </span>

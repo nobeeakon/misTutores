@@ -208,4 +208,4 @@ class ReviewCard extends HTMLElement {
   }
 }
 
-customElements.define("review-card", ReviewCard);
+window.customElements.define("review-card", ReviewCard);

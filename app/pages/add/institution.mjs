@@ -24,13 +24,14 @@ export default function ({ html, state }) {
   <h1 class="mis0 mb2 text2">Agrega una institución</h1>
 
   ${
-  success
-  ? `<inline-alert role="alert" type="success" margin="mb2"> ${success}</inline-alert>`
-  : ""
+    success
+      ? `<inline-alert role="alert" type="success" margin="mb2"> ${success}</inline-alert>`
+      : ""
   }
-  ${error
-  ? `<inline-alert role="alert" type="error" margin="mb2"> ${error}</inline-alert>`
-  : ""
+  ${
+    error
+      ? `<inline-alert role="alert" type="error" margin="mb2"> ${error}</inline-alert>`
+      : ""
   }
 
   <div  class="grid col-1 col-2-lg gap3">
@@ -51,14 +52,15 @@ export default function ({ html, state }) {
 
                   <datalist id='university-name-list'>
                       ${universities
-                      .map(
-                      (universityItem) =>
-                      `<option value="${universityItem.name}">${universityItem.abbreviation
-                          ? `${universityItem.abbreviation} - `
-                          : ""
-                          }${universityItem.name}</option>`
-                      )
-                      .join("")}
+                        .map(
+                          (universityItem) =>
+                            `<option value="${universityItem.name}">${
+                              universityItem.abbreviation
+                                ? `${universityItem.abbreviation} - `
+                                : ""
+                            }${universityItem.name}</option>`
+                        )
+                        .join("")}
                   </datalist>
               </div>
 
@@ -101,11 +103,11 @@ export default function ({ html, state }) {
                   <select required id='faculty-geographic-state' name='faculty-geographic-state' class="w100">
                       <option> </option>
                       ${Object.entries(states)
-                      .map(
-                      ([stateId, stateDisplayName]) =>
-                      `<option value="${stateId}"> ${stateDisplayName} </option>`
-                      )
-                      .join("")}
+                        .map(
+                          ([stateId, stateDisplayName]) =>
+                            `<option value="${stateId}"> ${stateDisplayName} </option>`
+                        )
+                        .join("")}
                   </select>
               </div>
 
@@ -123,16 +125,16 @@ export default function ({ html, state }) {
   </div>
       </div>
   </div>
-  <script>
+  <script >
       let prevUniversityValueExist = false;
 
       const universityName = document.getElementById('university-name')
       const universityAbbreviation = document.getElementById('university-abbreviation');
       const universityId = document.getElementById('university-id')
 
-      const universities = ${ JSON.stringify(universities)};
+      const universities = ${JSON.stringify(universities)};
 
-      universityName.onchange = (event) => {
+      universityName.addEventListener('change', ((event) => {
           const newUniversityName = event.target.value;
 
           const foundUniversity = universities.find(universityItem => universityItem.name === newUniversityName)
@@ -149,10 +151,9 @@ export default function ({ html, state }) {
               if (prevUniversityValueExist) {
                   universityAbbreviation.value = '';
                   prevUniversityValueExist = false;
-
-              }
-          }
-      }
+                }
+        }
+      }));
 
 
   </script>

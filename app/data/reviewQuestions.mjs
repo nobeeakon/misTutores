@@ -14,13 +14,13 @@ export const reviewQuestions = {
       { value: "never", label: "Casi nunca" },
       {
         value: "requestedByAlumni",
-        label: "De vez en cuando, normalmente yo lo solicitaba",
+        label: "Normalmente yo lo solicitaba",
       },
       {
         value: "requestedByTutor",
-        label: "De vez en cuando, normalmente mi tutor lo solicitaba",
+        label: "Normalmente mi tutor lo solicitaba",
       },
-      { value: "FewTimesMonth", label: "Programada, un par de veces al mes" },
+      { value: "FewTimesMonth", label: "Programada, un par al mes" },
       { value: "weekly", label: "Programada, semanalmente" },
     ],
   },
@@ -107,11 +107,11 @@ export const reviewQuestions = {
   projectTimeline: {
     id: "projectTimeline",
     label:
-      "El tiempo del proyecto y expectativas fueron adecuadas para tu programa de estudios (Realizable dentro de los tiempos requeridos)",
+      "El tiempo del proyecto y expectativas fueron adecuadas para tu programa de estudios",
     type: questionTypes.likert,
     scaleSize: 5,
     maxMinOptions: {
-      min: "No, era excesivamente ambicioso",
+      min: "No, era muy ambicioso",
       max: "Sí, era adecuado",
     },
   },

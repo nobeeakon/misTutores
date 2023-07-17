@@ -16,7 +16,8 @@ export default function ({ html, state }) {
   return html`
     <style>
         .suggestionsWrapper {
-            max-width: 500px;
+          height: 100%;
+            max-height: 500px;
             overflow-y: auto;
         }
     </style>
@@ -153,7 +154,11 @@ export default function ({ html, state }) {
           </div>
         </div>
       </div>
-      <script>
+      <script
+      type="module"
+      src="/_public/browser/tutor-suggestions.mjs"
+    ></script>
+<script>
         const university = document.getElementById("university-id");
         const faculty = document.getElementById("faculty-id");
         let currentUniversityId = "${universityId}";
@@ -205,10 +210,7 @@ export default function ({ html, state }) {
           tutorSuggestionsElement.setAttribute("surname2", event.target.value);
         });
       </script>
-      <script
-        type="module"
-        src="/_public/browser/tutor-suggestions.mjs"
-      ></script>
+ 
     </main-layout>
   `;
 }

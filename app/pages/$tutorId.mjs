@@ -13,8 +13,8 @@ ${reviewQuestions[questionId].maxMinOptions.min}
 ${getLikertScaleArray(reviewQuestions[questionId].scaleSize)
   .map(
     (index) =>
-      `<div class="mis-2 mie-2 " >
-      <label class=" text-center inline-block pis-1 pie-1">
+      `<div class="mie-2 " >
+      <label class=" text-center inline-block pis-3 pie-3">
       <div>
       <input  required name="${reviewQuestions[questionId].id}" type="radio" value="${index}"/>
       </div>
@@ -98,13 +98,13 @@ const getLikertChart = ({
     .map(([key, value]) => `${key}="${value}"`)
     .join(" ");
 
-  return `          <likert-chart
+  return `     <div ">     <likert-chart
   min="${minTitle}"
   max="${maxTitle}"
   length="${scaleSize}"
   title="${questionText}"
   ${likertAnswers}
-></likert-chart>`;
+></likert-chart></div>`;
 };
 
 /** @type {import('@enhance/types').EnhanceElemFn} */
