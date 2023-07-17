@@ -5,8 +5,8 @@ export default function({html, state}) {
 
     return html`
     <header> 
-    <nav class="mbs2 mbe1 flex align-items-baseline  pi4">
-    <a href="/" >Inicio</a>
+    <nav class="mbs2 mbe1 flex align-items-center  pi4">
+    <a href="/"  ><img alt="home page" src="/_public/assets/icons/home.svg" width="30" ></a>
         <ul class="flex flex-grow justify-content-end align-items-baseline  list-none">
             
 

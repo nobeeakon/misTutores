@@ -20,11 +20,12 @@ export default function({html, state}) {
         }
 
         .primaryButton {
-          background-color: var(--primary-400);
+          background-color: var(--primary-500);
           color: white;
           padding: var(--space--3) var(--space-1);
           border-radius: 8px;
           display:inline-block;
+          font-weight: 900;
         }
 
         .primaryButton:hover {
