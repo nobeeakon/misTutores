@@ -43,7 +43,7 @@ export default function({html, state}) {
 
         .link {
           color: var(--grey-800);
-          text-decoration: var(--primary-500) wavy underline;
+          text-decoration: var(--primary-400) wavy underline;
         }
 
         .w100 {

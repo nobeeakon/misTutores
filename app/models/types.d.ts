@@ -17,6 +17,7 @@ export type TutorType = {
     name: string;
     surname1: string;
     surname2: string;
+    flagged: string[];
     worksIn: {
         universityId: string;
         facultyId: string;

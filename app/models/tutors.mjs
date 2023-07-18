@@ -43,6 +43,9 @@ export const getTutor = async (tutorId) => {
   return tutorInfo;
 };
 
+/**
+ * @param { import('../models/types').TutorType} tutor 
+ */
 export const upsertTutor = async (tutor) => {
   return data.set({ table: tables.tutors, ...tutor });
 };

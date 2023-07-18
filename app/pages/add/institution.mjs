@@ -70,9 +70,10 @@ export default function ({ html, state }) {
                           Abreviación
                       </label>
                   </div>
-                  <input type='text' id='university-abbreviation' name='university-abbreviation'
-                      value="${universityAbbreviation}" class="w100" />
+                  <input type='text' id='university-abbreviation' name='university-abbreviation' 
+                      value="${universityAbbreviation}" class="w100" autocomplete="off" />
                   </label>
+
               </div>
 
               <div class="mb1">
@@ -81,7 +82,10 @@ export default function ({ html, state }) {
                           Facultad o Instituto
                       </label>
                   </div>
-                  <input type='text' id='faculty-name' name='faculty-name' class="w100" />
+                  <input type='text' id='faculty-name' name='faculty-name' class="w100" list="faculty-name-list" autocomplete="off"/>
+                  <datalist id="faculty-name-list">
+                  </datalist>
+  
               </div>
 
 
@@ -128,19 +132,31 @@ export default function ({ html, state }) {
   <script >
       let prevUniversityValueExist = false;
 
-      const universityName = document.getElementById('university-name')
+      const universityName = document.getElementById('university-name');
       const universityAbbreviation = document.getElementById('university-abbreviation');
-      const universityId = document.getElementById('university-id')
+      const universityId = document.getElementById('university-id');
+      const facultyName = document.getElementById('faculty-name');
+      const facultyDataList = document.getElementById('faculty-name-list');
+
+
 
       const universities = ${JSON.stringify(universities)};
 
       universityName.addEventListener('change', ((event) => {
           const newUniversityName = event.target.value;
+            facultyDataList.innerHTML = ""; // clear content
 
           const foundUniversity = universities.find(universityItem => universityItem.name === newUniversityName)
           if (foundUniversity) {
               universityAbbreviation.value = foundUniversity.abbreviation;
               universityId.value = foundUniversity.key;
+
+              foundUniversity.faculties.forEach(facultyItem => {
+                const optionItem = document.createElement('option');
+                optionItem.value = facultyItem.name;
+                optionItem.innerText = facultyItem.name;
+                facultyDataList.appendChild(optionItem)
+            })  
 
               universityAbbreviation.disabled = true;
               prevUniversityValueExist = true;
@@ -154,6 +170,7 @@ export default function ({ html, state }) {
                 }
         }
       }));
+
 
 
   </script>

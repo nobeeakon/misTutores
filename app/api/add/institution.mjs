@@ -32,7 +32,7 @@ export async function getInstitutions(req) {
 
   const universitiesData = await getAllUniversities();
   const cleanUniversitiesData = universitiesData.map(
-    ({ key, name, abbreviation }) => ({ key, name, abbreviation })
+    ({ key, name, abbreviation, faculties }) => ({ key, name, abbreviation, faculties })
   );
 
   await incrementViewsCounters(viewCountersPageNames.addInstitution);

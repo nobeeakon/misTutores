@@ -123,6 +123,7 @@ async function addNewTutor(req) {
     surname2: tutorSurname2,
     key: tutorUuid,
     worksIn: [{ universityId, facultyId }],
+    flagged: [],
     reviews: [],
   };
 
