@@ -18,7 +18,7 @@ export default function Head () {
       <meta name="description" content="Evalúa tu experiencia con tu tutor de tesis y ayuda a otros estudiantes que se encuentran en el delicado proceso de escoger tutor.">
 
       ${linkTag()}
-      <!-- <link rel="icon" href="/_public/favicon.svg"> TODO --!>
+      <link rel="icon" href="/_public/bigT.png"> 
 
 
       <style>
