@@ -47,6 +47,7 @@ export default function ({ html, state }) {
                 value="${universityId}"
                 required
                 class="w100"
+                autofocus
               >
                 <option></option>
 
@@ -93,7 +94,6 @@ export default function ({ html, state }) {
                     id="tutor-name"
                     name="tutor-name"
                     class="w100"
-                    autofocus
                   />
                 </div>
               </div>
