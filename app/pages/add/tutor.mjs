@@ -35,6 +35,53 @@ export default function ({ html, state }) {
         <div>
           <div>
             <form method="post">
+
+            <div class="mbe1">
+            <div class="mbe-3">
+              <label for="university-id"> Universidad </label>
+            </div>
+            <div>
+              <select
+                id="university-id"
+                name="university-id"
+                value="${universityId}"
+                required
+                class="w100"
+              >
+                <option></option>
+
+                ${universities
+                  .map(
+                    (universityItem) =>
+                      `<option value="${universityItem.key}">${
+                        universityItem.abbreviation
+                          ? `${universityItem.abbreviation} - `
+                          : ""
+                      }${universityItem.name}</option>`
+                  )
+                  .join("")}
+              </select>
+            </div>
+          </div>
+
+          <div class="mb1">
+            <div class="mbe-3">
+              <label for="faculty-id"> Facultad o Instituto </label>
+            </div>
+
+            <div>
+              <select
+                id="faculty-id"
+                name="faculty-id"
+                value="${facultyId}"
+                required
+                class="w100"
+              >
+                <option></option>
+              </select>
+            </div>
+          </div>
+
               <div class="mbe1">
                 <div class="mbe-3">
                   <label for="tutor-name"> Nombre </label>
@@ -85,51 +132,7 @@ export default function ({ html, state }) {
                 </div>
               </div>
 
-              <div class="mb1">
-                <div class="mbe-3">
-                  <label for="university-id"> Universidad </label>
-                </div>
-                <div>
-                  <select
-                    id="university-id"
-                    name="university-id"
-                    value="${universityId}"
-                    required
-                    class="w100"
-                  >
-                    <option></option>
-
-                    ${universities
-                      .map(
-                        (universityItem) =>
-                          `<option value="${universityItem.key}">${
-                            universityItem.abbreviation
-                              ? `${universityItem.abbreviation} - `
-                              : ""
-                          }${universityItem.name}</option>`
-                      )
-                      .join("")}
-                  </select>
-                </div>
-              </div>
-
-              <div class="mb1">
-                <div class="mbe-3">
-                  <label for="faculty-id"> Facultad o Instituto </label>
-                </div>
-
-                <div>
-                  <select
-                    id="faculty-id"
-                    name="faculty-id"
-                    value="${facultyId}"
-                    required
-                    class="w100"
-                  >
-                    <option></option>
-                  </select>
-                </div>
-              </div>
+             
 
               <div class="text-end">
                 <button type="submit" class="primaryButton">Enviar</button>
