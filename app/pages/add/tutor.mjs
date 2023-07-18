@@ -169,7 +169,11 @@ export default function ({ html, state }) {
           if (currentUniversityId === newUniversityId) return;
           currentUniversityId = newUniversityId; // update university id
 
-          faculty.innerHtml = ""; // clear content
+          faculty.innerHTML = ""; // clear content
+
+          // empty option
+          const nullOption = document.createElement("option");
+          faculty.appendChild(nullOption);
 
           const targetUniversity = universities.find(
             (universityItem) => universityItem.key === newUniversityId

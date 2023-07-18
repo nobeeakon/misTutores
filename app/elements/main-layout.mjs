@@ -20,7 +20,7 @@ export default function({html, state}) {
         }
 
         .primaryButton {
-          background-color: var(--primary-500);
+          background-color: var(--primary-400);
           color: white;
           padding: var(--space--3) var(--space-1);
           border-radius: 8px;
@@ -29,7 +29,7 @@ export default function({html, state}) {
         }
 
         .primaryButton:hover {
-          background-color: var(--primary-600);
+          background-color: var(--primary-500);
         }
 
         input,
