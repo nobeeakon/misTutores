@@ -4,6 +4,8 @@ import {
   questionTypes,
 } from "../data/reviewQuestions.mjs";
 import { getLikertScaleArray } from "../utils/utils.mjs";
+import { SEARCH_QUERY_TYPES } from "../api/search.mjs";
+
 
 const createLikertScale = (questionId) => `
 <div class="mbe-2">${reviewQuestions[questionId].label}</div>
@@ -115,6 +117,7 @@ export default function ({ html, state }) {
   const likertQuestions = reviews?.likertQuestions ?? [];
   const generalComments = reviews?.generalComments ?? [];
 
+
   if (!tutorData)
     return html`
       <main-layout>
@@ -138,10 +141,11 @@ export default function ({ html, state }) {
                        universityAbbreviation,
                        facultyId,
                        facultyName,
+                       stateAbbreviation,
                      }) =>
-                       `<a href='/search?type=tutor&universityId=${universityId}'>${
+                       `<a href='/search?type=${SEARCH_QUERY_TYPES.tutorsInInstitution}&universityId=${universityId}'>${
                          universityAbbreviation || universityName
-                       }</a> - <a href='/search?type=tutor&universityId=${universityId}&facultyId=${facultyId}'>${facultyName}</a>`
+                       }</a> - <a href='/search?type=${SEARCH_QUERY_TYPES.tutorsInInstitution}&universityId=${universityId}&facultyId=${facultyId}'>${facultyName}</a> (${stateAbbreviation})`
                    )
                    .join(", ")
            }

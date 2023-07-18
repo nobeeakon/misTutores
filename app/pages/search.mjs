@@ -19,8 +19,9 @@ const getTutorTableRow = (tutorData) => {
     `;
 };
 
-const getInstitutionTableRow = (tutorData) => {
-  const { university, universityId, faculty, facultyId } = tutorData;
+const getInstitutionTableRow = (institutionData) => {
+  const { university, universityId, faculty, facultyId, stateAbbreviation } = institutionData;
+
 
   const getHref = (includeFacultyId) =>
     `/search?type=${
@@ -35,6 +36,9 @@ const getInstitutionTableRow = (tutorData) => {
     <td>
     <a href="${getHref(true)}" class="link">
     ${faculty}</a> </td>
+    <td>
+   
+    ${stateAbbreviation} </td>
     </tr>
     `;
 };
@@ -98,7 +102,7 @@ const getTable = (type, data, currentPage, pagesLength) => {
             <tr>
             <th>Nombre</th>
             <th class="text-center">Reseñas</th>
-            <th>Instituciones</th>
+            <th>Institución</th>
             </tr>
             </thead>
             <tbody>
@@ -121,6 +125,7 @@ const getTable = (type, data, currentPage, pagesLength) => {
             <tr>
             <th>Universidad</th>
             <th>Facultad o Instituto</th>
+            <th>Estado</th>
             </tr>
             </thead>
             <tbody>

@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { states } from "../../data/states.mjs";
-import { sanitizeText, sessionStripPostMessages } from "../../utils/utils.mjs";
+import { sanitizeTextSpaces, sessionStripPostMessages } from "../../utils/utils.mjs";
 import { sanitizeQuery, sanitizeBody , setSessionId} from "../../middleware/sanitize.mjs";
 import {
   getAllUniversities,
@@ -86,12 +86,12 @@ async function postNewTutor(req) {
 async function addNewTutor(req) {
   const { body } = req;
 
-  const universityId = sanitizeText(body["university-id"] ?? "");
-  const facultyId = sanitizeText(body["faculty-id"] ?? "");
+  const universityId = sanitizeTextSpaces(body["university-id"] ?? "");
+  const facultyId = sanitizeTextSpaces(body["faculty-id"] ?? "");
 
-  const tutorName = sanitizeText(body["tutor-name"] ?? "");
-  const tutorSurname1 = sanitizeText(body["tutor-surname1"] ?? "");
-  const tutorSurname2 = sanitizeText(body["tutor-surname2"] ?? "");
+  const tutorName = sanitizeTextSpaces(body["tutor-name"] ?? "");
+  const tutorSurname1 = sanitizeTextSpaces(body["tutor-surname1"] ?? "");
+  const tutorSurname2 = sanitizeTextSpaces(body["tutor-surname2"] ?? "");
 
   if (
     !universityId ||

@@ -1,17 +1,26 @@
 import { v4 as uuidv4 } from "uuid";
 import { states } from "../../data/states.mjs";
-import { sanitizeText, normalizeString, sessionStripPostMessages } from "../../utils/utils.mjs";
-import { sanitizeQuery, sanitizeBody , setSessionId} from "../../middleware/sanitize.mjs";
+import {
+  sanitizeTextSpaces,
+  normalizeString,
+  sessionStripPostMessages,
+} from "../../utils/utils.mjs";
+import {
+  sanitizeQuery,
+  sanitizeBody,
+  setSessionId,
+} from "../../middleware/sanitize.mjs";
 import {
   getAllUniversities,
   getUniversity,
   upsertUniversity,
 } from "../../models/universities.mjs";
-import { incrementViewsCounters, viewCountersPageNames } from "../../models/counters.mjs";
+import {
+  incrementViewsCounters,
+  viewCountersPageNames,
+} from "../../models/counters.mjs";
 
-export const get = [sanitizeQuery,setSessionId, getInstitutions];
-
-
+export const get = [sanitizeQuery, setSessionId, getInstitutions];
 
 /** @type {import('@enhance/types').EnhanceApiFn} */
 export async function getInstitutions(req) {
@@ -23,10 +32,10 @@ export async function getInstitutions(req) {
 
   const universitiesData = await getAllUniversities();
   const cleanUniversitiesData = universitiesData.map(
-    ({ id, name, abbreviation }) => ({ id, name, abbreviation })
+    ({ key, name, abbreviation }) => ({ key, name, abbreviation })
   );
 
-  await incrementViewsCounters(viewCountersPageNames.addInstitution)
+  await incrementViewsCounters(viewCountersPageNames.addInstitution);
 
   return {
     session,
@@ -75,34 +84,37 @@ export async function postNewInstitution(req) {
 export async function addNewInstitution(req) {
   const { body } = req;
 
-  const universityId = sanitizeText(body["university-id"] ?? "");
-  const universityName = sanitizeText(body["university-name"] ?? "");
-  const universityAbbreviation = sanitizeText(
+  const universityId = sanitizeTextSpaces(body["university-id"] ?? "");
+  const universityName = sanitizeTextSpaces(body["university-name"] ?? "");
+  const universityAbbreviation = sanitizeTextSpaces(
     body["university-abbreviation"] ?? ""
   );
-  const facultyName = sanitizeText(body["faculty-name"] ?? "");
-  const facultyAbbreviation = sanitizeText(body["faculty-abbreviation"] ?? "");
-  const geographicState = sanitizeText(body["faculty-geographic-state"] ?? "");
+  const facultyName = sanitizeTextSpaces(body["faculty-name"] ?? "");
+  const facultyAbbreviation = sanitizeTextSpaces(body["faculty-abbreviation"] ?? "");
+  const geographicStateId = sanitizeTextSpaces(body["faculty-geographic-state"] ?? "");
 
   if (
     !universityName.length ||
     !facultyName.length ||
-    !(geographicState in states)
+    !(geographicStateId in states)
   ) {
-    return Promise.reject(new Error("Add new institution: missing information"));
+    return Promise.reject(
+      new Error("Add new institution: missing information")
+    );
   }
 
   const universityInfo = await getUniversity(universityId);
 
   const facultyExist = !!universityInfo?.faculties?.find(
-    (facultyItem) => normalizeString(facultyItem.name) === normalizeString(facultyName)
+    (facultyItem) =>
+      normalizeString(facultyItem.name).toLowerCase() === normalizeString(facultyName).toLowerCase() && facultyItem.stateId === geographicStateId
   );
 
   const facultyUuid = uuidv4();
   const newFaculty = {
     name: facultyName,
     abbreviation: facultyAbbreviation,
-    stateId: geographicState,
+    stateId: geographicStateId,
     key: facultyUuid,
   };
   const newFaculties = [...(universityInfo?.faculties ?? []), newFaculty];

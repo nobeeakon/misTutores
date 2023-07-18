@@ -38,9 +38,9 @@ export default function ({ html, state }) {
       <div>
           <form method='post'>
 
-              <input name='university-id' id='university-id' hidden value=${universityId} />
+              <input name='university-id' id='university-id' hidden value="${universityId}" />
 
-              <div class="mb1">
+              <div class="mbe1">
                   <div class="mbe-3">
                       <label for='university-name'>
                           Universidad
@@ -48,7 +48,7 @@ export default function ({ html, state }) {
                   </div>
 
                   <input type='text' id='university-name' list='university-name-list' name='university-name'
-                      value="${universityName}" autocomplete="off" required class="w100" />
+                      value="${universityName}" autocomplete="off" required class="w100" autofocus/>
 
                   <datalist id='university-name-list'>
                       ${universities
@@ -140,7 +140,7 @@ export default function ({ html, state }) {
           const foundUniversity = universities.find(universityItem => universityItem.name === newUniversityName)
           if (foundUniversity) {
               universityAbbreviation.value = foundUniversity.abbreviation;
-              universityId.value = foundUniversity.id;
+              universityId.value = foundUniversity.key;
 
               universityAbbreviation.disabled = true;
               prevUniversityValueExist = true;

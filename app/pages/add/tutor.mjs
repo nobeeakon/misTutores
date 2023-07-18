@@ -22,9 +22,6 @@ export default function ({ html, state }) {
         }
     </style>
 
-    <div style="width: 800px;">
-        </div>
-
     <main-layout>
       <h1 class="mis0 mb2 text2">${titleMessage}</h1>
       ${success

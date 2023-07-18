@@ -154,6 +154,7 @@ const getInstitutionsByName = async (searchText) => {
         universityId,
         faculty: facultyItem.name,
         facultyId: facultyItem.key,
+        stateAbbreviation: facultyItem.stateId,
       }));
     })
     .filter(Boolean)

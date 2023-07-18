@@ -10,7 +10,7 @@ import {
   sanitizeBody,
   setSessionId,
 } from "../middleware/sanitize.mjs";
-import { sanitizeText, stringToInt, validateUserId } from "../utils/utils.mjs";
+import { sanitizeTextSpaces, stringToInt, validateUserId } from "../utils/utils.mjs";
 import {
   questionTypes,
   reviewQuestions,
@@ -62,6 +62,7 @@ async function getTutorById(req) {
           facultyId: targetFaculty.key,
           facultyName: targetFaculty.name,
           facultyAbbreviation: targetFaculty.abbreviation,
+          stateAbbreviation: targetFaculty.stateId,
         };
       }
 
@@ -243,7 +244,7 @@ async function addNewReview(req) {
   const answersMap = new Map(
     questionsToDisplay.map((questionItem) => [
       questionItem,
-      sanitizeText(body[questionItem] ?? ""),
+      sanitizeTextSpaces(body[questionItem] ?? ""),
     ])
   );
 

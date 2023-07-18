@@ -22,7 +22,7 @@ export const getPersonName = (name, surname1, surname2, normalize = false) => {
 };
 
 /**
- * Normalizes a string, removes the tildes expect for the ones in ñ and ü
+ * Normalizes a string, removes the tildes expect for the ~ as is used in ñ
  * @param {string} text
  * @returns string
  */
@@ -46,7 +46,7 @@ export const stringToInt = (numberString) => {
  * removes additional spaces
  * @param {string} text
  */
-export const sanitizeText = (text) => text.replace(/\s+/g, " ").trim();
+export const sanitizeTextSpaces = (text) => text.replace(/\s+/g, " ").trim();
 
 /**
  * Creates an array of a certain size
