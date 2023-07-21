@@ -20,7 +20,7 @@ export default function Head () {
       ${linkTag()}
       <link rel="icon" href="/_public/bigT.png"> 
 
-
+      <meta name="google-site-verification" content="7MAL5WdF7qZMA2f7l1g0cStmzJtjYfKxBJiYrBp-Q6s" />
       <style>
       body {
         height: 100%;

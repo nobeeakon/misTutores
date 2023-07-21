@@ -41,9 +41,12 @@ export default function({html, state}) {
           border-radius: 4px;
         }
 
-        .link {
-          color: var(--grey-800);
+        .linkUnderline {
           text-decoration: var(--primary-400) wavy underline;
+        }
+
+        .linkColor {
+          color: var(--primary-500);
         }
 
         .w100 {

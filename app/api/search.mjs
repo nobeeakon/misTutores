@@ -5,11 +5,11 @@ import {
 } from "../utils/utils.mjs";
 import { getAllUniversities, getUniversity } from "../models/universities.mjs";
 import { getAllTutors } from "../models/tutors.mjs";
+import { sanitizeQuery, setSessionId } from "../middleware/sanitize.mjs";
 import {
-  sanitizeQuery,
-  setSessionId,
-} from "../middleware/sanitize.mjs";
-import { incrementViewsCounters, viewCountersPageNames } from "../models/counters.mjs";
+  incrementViewsCounters,
+  viewCountersPageNames,
+} from "../models/counters.mjs";
 
 export const SEARCH_QUERY_TYPES = {
   tutor: "tutor",
@@ -32,17 +32,33 @@ export const getSearchTextRegexp = (searchText) =>
 /**
  * @param {Array.<import ('../models/types').TutorType>} tutors
  * @param {Map<string, string>} institutionMap
+ * @param {Map<string, string>} universityAbbreviationsMap
+ * @param {boolean} showUniversityAbbreviation to get university abbreviation instead of university name
  * @returns {Array.<{key:string; name:string; reviewCount: number; institutionNames:{universityName:string;facultyName:string;}[]>}
  */
-export const prepareTutorsList = (tutors, institutionMap) => {
+export const prepareTutorsList = (
+  tutors,
+  institutionMap,
+  universityAbbreviationsMap,
+  showUniversityAbbreviation = true
+) => {
   const tutorsList = tutors.map((tutorItem) => {
     const institutionNames = tutorItem.worksIn
       .map((institutionItem) => {
         const universityName = institutionMap.get(institutionItem.universityId);
+        const universityAbbreviation = universityAbbreviationsMap.get(
+          institutionItem.universityId
+        );
         const facultyName = institutionMap.get(institutionItem.facultyId);
 
         return universityName && facultyName
-          ? { universityName, facultyName }
+          ? {
+              universityName:
+                showUniversityAbbreviation && universityAbbreviation
+                  ? universityAbbreviation
+                  : universityName,
+              facultyName,
+            }
           : null;
       })
       .filter(Boolean);
@@ -95,6 +111,14 @@ const getTutors = async (
     );
   });
 
+  const universityAbbreviationsMap = new Map();
+  universities.forEach((universityItem) => {
+    const { abbreviation } = universityItem;
+    if (abbreviation) {
+      institutionMap.set(universityItem.key, abbreviation);
+    }
+  });
+
   const filteredTutors = tutorsData
     .filter(({ name, surname1, surname2 }) => {
       return searchText
@@ -111,7 +135,12 @@ const getTutors = async (
       );
     });
 
-  const tutorsList = prepareTutorsList(filteredTutors, institutionMap);
+  const tutorsList = prepareTutorsList(
+    filteredTutors,
+    institutionMap,
+    universityAbbreviationsMap,
+    true
+  );
 
   return { data: tutorsList ?? [] };
 };
@@ -131,16 +160,14 @@ const getInstitutionsByName = async (searchText) => {
   const textRegexp = getSearchTextRegexp(searchText);
   const universities = await getAllUniversities();
 
-
   const data = universities
     .map(({ key: universityId, name, abbreviation, faculties }) => {
       const isTextInUniversityName =
         textRegexp.test(normalizeString(name)) ||
         abbreviation.toLowerCase() === searchText.toLowerCase();
 
-      const filteredFaculties = faculties.filter(
-        (facultyItem) =>
-          textRegexp.test(normalizeString(facultyItem.name))
+      const filteredFaculties = faculties.filter((facultyItem) =>
+        textRegexp.test(normalizeString(facultyItem.name))
       );
 
       if (!isTextInUniversityName && filteredFaculties.length === 0)
@@ -183,6 +210,12 @@ const getTutorsInInstitution = async (universityId, facultyId) => {
     institutionMap.set(facultyItem.key, facultyItem.name)
   );
 
+  const universityAbbreviationsMap = new Map();
+
+  if (universityInfo.abbreviation) {
+    institutionMap.set(universityInfo.key, universityInfo.abbreviation);
+  }
+
   const tutorsData = await getAllTutors();
 
   const filteredTutors = tutorsData.filter(({ worksIn }) => {
@@ -193,7 +226,12 @@ const getTutorsInInstitution = async (universityId, facultyId) => {
     );
   });
 
-  const tutorsList = prepareTutorsList(filteredTutors, institutionMap);
+  const tutorsList = prepareTutorsList(
+    filteredTutors,
+    institutionMap,
+    universityAbbreviationsMap,
+    true
+  );
 
   return { data: tutorsList };
 };
@@ -203,27 +241,26 @@ export const get = [sanitizeQuery, setSessionId, searchInfoWrapper];
 
 /** @type {import('@enhance/types').EnhanceApiFn} */
 async function searchInfoWrapper(req) {
-  const {session} = req;
+  const { session } = req;
 
   try {
-      const searchData = await searchInfo(req)
+    const searchData = await searchInfo(req);
 
-      return searchData;
-  }catch(error) {
-    console.error(`Error when searching data: ${error.toString()}`)
+    return searchData;
+  } catch (error) {
+    console.error(`Error when searching data: ${error.toString()}`);
     return {
-        session,
-        json: {
-          error: 'Algo salió mal, por favor intenta de nuevo'
-        },
-      };
-    
+      session,
+      json: {
+        error: "Algo salió mal, por favor intenta de nuevo",
+      },
+    };
   }
-} 
+}
 
 /** @type {import('@enhance/types').EnhanceApiFn} */
 export async function searchInfo(req) {
-  const {session} = req;
+  const { session } = req;
   const {
     type = "",
     text = "",
@@ -232,9 +269,8 @@ export async function searchInfo(req) {
     page = "",
   } = req.query;
 
-
   const pageNumber = stringToInt(page);
-  const currentPage =  pageNumber != null && pageNumber > 0 ? pageNumber : 0;
+  const currentPage = pageNumber != null && pageNumber > 0 ? pageNumber : 0;
 
   if (!type) {
     return { json: {} };
@@ -256,7 +292,7 @@ export async function searchInfo(req) {
       break;
     default:
       return {
-    session,
+        session,
         json: {
           error: defaultInvalidSearchMessage,
         },
@@ -271,9 +307,8 @@ export async function searchInfo(req) {
         (currentPage + 1) * SEARCH_PAGE_SIZE
       );
 
-              // increment view counter
-  await incrementViewsCounters(viewCountersPageNames.search)
-
+  // increment view counter
+  await incrementViewsCounters(viewCountersPageNames.search);
 
   return {
     session,
@@ -282,7 +317,7 @@ export async function searchInfo(req) {
       data,
       type,
       currentPage,
-      pagesLength: Math.ceil((queryInfo?.data?.length ?? 0)/ SEARCH_PAGE_SIZE),
+      pagesLength: Math.ceil((queryInfo?.data?.length ?? 0) / SEARCH_PAGE_SIZE),
     },
   };
 }

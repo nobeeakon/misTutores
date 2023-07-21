@@ -124,7 +124,6 @@ export default function ({ html, state }) {
                 <div>
                   <input
                     type="text"
-                    required
                     id="tutor-surname2"
                     name="tutor-surname2"
                     class="w100"
@@ -141,7 +140,7 @@ export default function ({ html, state }) {
           </div>
 
           <div class="mb1">
-            <a href="/add/institution" class="link">
+            <a href="/add/institution" class="linkUnderline">
               Click aquí si necesitas agregar una institución</a
             >
           </div>

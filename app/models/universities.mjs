@@ -16,7 +16,10 @@ export const getAllUniversities = async () => {
 
   for await (const page of paginatedQuery) {
     page.forEach(({table: _table, ...universityItem }) => {
-      universitiesData.push(universityItem);
+      const faculties = [...universityItem.faculties]
+
+      faculties.sort((a,b) => a.name.localeCompare(b.name, "es"))
+      universitiesData.push({...universityItem, faculties});
     });
   }
 

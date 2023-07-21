@@ -2,7 +2,7 @@
 export default function ({html}) {
     return html`
     <footer class=" pageContent mbs2 pbe0 colorGrey600 text-1"> 
-    <div class="text-center">Hecho por <a class="link colorGrey600" href="https://twitter.com/nobeeakon" rel="noopener noreferrer">Daniel T.</a>, con Enhance js </div>
+    <div class="text-center">Hecho por <a class="linkUnderline colorGrey600" href="https://twitter.com/nobeeakon" rel="noopener noreferrer">Daniel T.</a>, con Enhance js </div>
 
     <div class="text-2  mbs0">
     <ul class="list-none flex footerLinksWrapper flex-wrap justify-content-evenly">

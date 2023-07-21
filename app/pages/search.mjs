@@ -5,7 +5,7 @@ const getTutorTableRow = (tutorData) => {
 
   return `
     <tr>
-    <td><a href="/${key}" class="link">${name}</a></td>
+    <td><a href="/${key}" class="linkColor">${name}</a></td>
     <td class="text-center">${reviewsCount}</td>
     <td>${institutionNames
       .map(
@@ -34,7 +34,7 @@ const getInstitutionTableRow = (institutionData) => {
     <tr>
     <td> <a href="${getHref(false)}"> ${university} </a> </td>
     <td>
-    <a href="${getHref(true)}" class="link">
+    <a href="${getHref(true)}" class="linkColor">
     ${faculty}</a> </td>
     <td>
    
@@ -83,7 +83,7 @@ const getTable = (type, data, currentPage, pagesLength) => {
 
   const noDataMessage = (typeLabel, href) => `<div class="text-center">
     <p class=" text1 colorGrey600 mb2"> No encontramos lo que buscabas :/ </p>
-    <p> Si tu ${typeLabel} no está, por favor agrégala  <a href="${href}" class="link">aquí</a>.  </p>
+    <p> Si tu ${typeLabel} no está, por favor agrégala  <a href="${href}" class="linkUnderline">aquí</a>.  </p>
     <div class="mainImage mbs2">
     <img src="/_public/assets/alien.jpg" alt="No encontramos lo que buscabas"/>
     </div> 

@@ -56,7 +56,7 @@ export const post = [sanitizeBody, postNewTutor];
 
 /** @type {import('@enhance/types').EnhanceApiFn} */
 async function postNewTutor(req) {
-  const currentLocation = "tutor";
+  const currentLocation = "/add/tutor";
 
   try {
     const tutorInfo = await addNewTutor(req);
@@ -77,7 +77,7 @@ async function postNewTutor(req) {
         ...req.session,
         error: "Tuvimos un problema al agregar al tutor",
       },
-      currentLocation,
+      location: currentLocation,
     };
   }
 }
@@ -97,8 +97,7 @@ async function addNewTutor(req) {
     !universityId ||
     !facultyId ||
     !tutorName ||
-    !tutorSurname1 ||
-    !tutorSurname2
+    !tutorSurname1 
   ) {
     return Promise.reject(new Error("Add new tutor: Missing information"));
   }

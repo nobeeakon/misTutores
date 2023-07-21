@@ -120,7 +120,7 @@ export default function ({ html, state }) {
               </div>
           </form>
           <div class="mb1">
-              <a href="/add/tutor" class="link"> Click aquí si quieres agregar un tutor</a>
+              <a href="/add/tutor" class="linkUnderline"> Click aquí si quieres agregar un tutor</a>
           </div>
       </div>
       <div>
