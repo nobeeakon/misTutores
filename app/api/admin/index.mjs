@@ -32,18 +32,19 @@ const postActions = {
 };
 async function handleLogActions(req) {
   const action = req.body?.action;
+  const currentLocation = "/admin"
 
   try {
     switch (action) {
       case postActions.login: {
         const loginInfo = getlogInSessionObject(req);
 
-        return { ...loginInfo, location: "/admin/login" };
+        return { ...loginInfo, location: currentLocation };
       }
       case postActions.logout: {
         const logoutInfo = getLogoutSessionObject(req);
 
-        return { ...logoutInfo, location: "/admin/login" };
+        return { ...logoutInfo, location: currentLocation };
       }
       default:
         return {

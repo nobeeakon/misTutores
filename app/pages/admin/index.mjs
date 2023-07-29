@@ -5,10 +5,22 @@ export default function({html, state}) {
     const authorized = state.store?.authorized;
 
 
-    const logoutForm = `<form method="POST" >
+    const logoutForm = `<form method="POST"  class="text-end">
         <input type="hidden" name="action" value="logout" >
         <button class="primaryButton" type="submit">Log out</button>
-    </form>`
+    </form>
+    
+    <div>
+    <ul>
+        <li>
+            <a href="/admin/counts" class="linkColor">Cuentas</a>
+        </li>
+        <li>
+            <a href="/admin/addTutors" class="linkColor">Batch add tutors</a>
+        </li>
+    </ul>
+    </div>
+    `
     const loginForm = `
     <form method="POST" >
         <input type="hidden" name="action" value="login" >
@@ -26,7 +38,7 @@ export default function({html, state}) {
     </form>`    ;
 
   return html`<main-layout>
-    <section class="mbs4 text-center">
+    <section class="mbs4">
      ${authorized? logoutForm:loginForm}
     </section>
     </main-layout>`

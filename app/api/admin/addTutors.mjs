@@ -18,7 +18,7 @@ import {
   getNewTutor,
   upsertTutor,
 } from "../../models/tutors.mjs";
-import { validateAuthorizedMiddleWare, validateAuthorize } from "./login.mjs";
+import { validateAuthorizedMiddleWare, validateAuthorize } from "./index.mjs";
 
 export const get = [
   sanitizeQuery,

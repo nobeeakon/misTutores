@@ -1,5 +1,5 @@
 import { getCounts } from '../../models/counters.mjs';
-import {validateAuthorizedMiddleWare} from './login.mjs';
+import {validateAuthorizedMiddleWare} from './index.mjs';
 
 
 export const get = [validateAuthorizedMiddleWare, getCountsData];
