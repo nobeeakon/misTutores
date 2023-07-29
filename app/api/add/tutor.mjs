@@ -6,7 +6,7 @@ import {
   getAllUniversities,
   getUniversity,
 } from "../../models/universities.mjs";
-import { upsertTutor } from "../../models/tutors.mjs";
+import { getNewTutor, upsertTutor } from "../../models/tutors.mjs";
 import {  incrementViewsCounters, viewCountersPageNames } from "../../models/counters.mjs";
 
 export const get = [sanitizeQuery, setSessionId, getTutors];
@@ -115,16 +115,13 @@ async function addNewTutor(req) {
     );
   }
 
-  const tutorUuid = uuidv4();
-  const newTutor = {
-    name: tutorName,
-    surname1: tutorSurname1,
-    surname2: tutorSurname2,
-    key: tutorUuid,
-    worksIn: [{ universityId, facultyId }],
-    flagged: [],
-    reviews: [],
-  };
+  const newTutor = getNewTutor({
+    name: tutorName, 
+    surname1: tutorSurname1, 
+    surname2: tutorSurname2, 
+    universityId, 
+    facultyId
+  })
 
   return upsertTutor(newTutor);
 }

@@ -104,3 +104,12 @@ export const sessionStripPostMessages = (session) => {
     session: sanitizedSession,
   };
 };
+
+
+/**
+ * normalizes the search string and returns a regexp
+ * @param {string} searchText
+ * @returns regexp
+ */
+export const getNormalizedStringRegexp = (searchText) =>
+  new RegExp(normalizeString(searchText), "i");

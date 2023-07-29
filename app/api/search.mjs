@@ -2,6 +2,7 @@ import {
   getPersonName,
   normalizeString,
   stringToInt,
+  getNormalizedStringRegexp,
 } from "../utils/utils.mjs";
 import { getAllUniversities, getUniversity } from "../models/universities.mjs";
 import { getAllTutors } from "../models/tutors.mjs";
@@ -21,13 +22,7 @@ export const SEARCH_QUERY_TYPES = {
 const defaultInvalidSearchMessage =
   "Búsqueda inválida, por favor intenta de nuevo";
 
-/**
- * normalizes the search string and returns a regexp
- * @param {string} searchText
- * @returns regexp
- */
-export const getSearchTextRegexp = (searchText) =>
-  new RegExp(normalizeString(searchText), "i");
+
 
 /**
  * @param {Array.<import ('../models/types').TutorType>} tutors
@@ -98,7 +93,7 @@ const getTutors = async (
   }
 
   const tutorsData = await getAllTutors();
-  const searchTextRegexp = getSearchTextRegexp(searchText);
+  const searchTextRegexp = getNormalizedStringRegexp(searchText);
 
   // create a Map for the names
   const institutionMap = new Map();
@@ -157,7 +152,7 @@ const getInstitutionsByName = async (searchText) => {
     };
   }
 
-  const textRegexp = getSearchTextRegexp(searchText);
+  const textRegexp = getNormalizedStringRegexp(searchText);
   const universities = await getAllUniversities();
 
   const data = universities

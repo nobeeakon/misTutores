@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import data from "@begin/data";
 import { tables } from "./constants.mjs";
 
@@ -42,6 +43,32 @@ export const getTutor = async (tutorId) => {
 
   return tutorInfo;
 };
+
+/**
+ * Creates a new tutor object
+ * @param {{name: string; surname1: string; surname2: string|undefined;universityId:string; facultyId:string}} tutor informtion 
+ * @returns 
+ */
+export const getNewTutor = ({name, surname1, surname2, universityId, facultyId} = {} ) => {
+
+  if (!name || !surname1 || !universityId || !facultyId) {
+
+    throw new Error('New tutor: incomplete information');
+  }
+
+  const tutorUuid = uuidv4();
+  const newTutor = {
+    name,
+    surname1,
+    surname2,
+    key: tutorUuid,
+    worksIn: [{ universityId, facultyId }],
+    flagged: [],
+    reviews: [],
+  };
+
+  return newTutor;
+}
 
 /**
  * @param { import('../models/types').TutorType} tutor 
