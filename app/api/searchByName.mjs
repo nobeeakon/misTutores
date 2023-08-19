@@ -1,7 +1,8 @@
-import {  normalizeString } from "../utils/utils.mjs";
+  
+  import {  normalizeString,  getNormalizedStringRegexp} from "../utils/utils.mjs";
 import { getAllUniversities } from "../models/universities.mjs";
 import { getAllTutors } from "../models/tutors.mjs";
-import {getSearchTextRegexp, prepareTutorsList} from './search.mjs'
+import { prepareTutorsList} from './search.mjs'
 
 const TUTOR_BY_NAME_MIN_LENGTHS = 2;
 /**
@@ -20,9 +21,10 @@ const getTutorByNameAndSurname = async (
   }
     
   const tutorsData = await getAllTutors();
-  const nameRegexp = getSearchTextRegexp(searchName);
-  const surname1Regexp = getSearchTextRegexp(searchSurname1);
-  const surname2Regexp = getSearchTextRegexp(searchSurname2);
+  const nameRegexp = getNormalizedStringRegexp(searchName);
+  const surname1Regexp = getNormalizedStringRegexp(searchSurname1);
+  const surname2Regexp = getNormalizedStringRegexp(searchSurname2);
+
 
   // create a Map for the names
   const institutionMap = new Map();
@@ -35,6 +37,15 @@ const getTutorByNameAndSurname = async (
     );
   });
 
+  const universityAbbreviationsMap = new Map();
+  universities.forEach((universityItem) => {
+    const { abbreviation } = universityItem;
+    if (abbreviation) {
+      universityAbbreviationsMap.set(universityItem.key, abbreviation);
+    }
+  });
+
+
   const filteredTutors = tutorsData
     .filter(({ name, surname1, surname2 }) => {
       const hasName = nameRegexp.test(normalizeString(name));
@@ -45,7 +56,7 @@ const getTutorByNameAndSurname = async (
     })
 
 
-  const tutorsList = prepareTutorsList(filteredTutors, institutionMap);
+  const tutorsList = prepareTutorsList(filteredTutors, institutionMap, universityAbbreviationsMap, false);
 
 
 
@@ -57,7 +68,7 @@ const getTutorByNameAndSurname = async (
 export async function get(req) {
     const {  tutorName = '', tutorSurname1 = '', tutorSurname2 =''
    } = req.query;
-  
+   console.log('aqui', req.query)
 
    try {
     const QUERY_SIZE_LIMIT = 40;

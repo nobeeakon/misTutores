@@ -1,7 +1,6 @@
 import data from "@begin/data";
 import { tables } from "./constants.mjs";
 
-
 /**
  * @param {string[]} universitiesIds 
  * @returns {PromiseLike<Array.<import('../models/types').UniversityType>>}
@@ -58,14 +57,34 @@ export const getUniversity = async (universityId) => {
     key: universityId,
   });
 
-  if (!universityData) return;
+  if (!universityData) {
+    throw new Error(`getUniversity: Incomplete information: universityData ${!!universityData}`);
+  }
 
   const {table: _table, ...universityInfo} = universityData;
 
   return universityInfo;
 };
 
+export const deleteFaculty = async(universityId, facultyId) => {
+  if (!universityId || !facultyId) {
+    throw new Error(`deleteFaculty: Incomplete information: universityId ${!!universityId}, facultyId: ${!!facultyId}`);
+  }
 
+  const universityInfo = await getUniversity(universityId);
+
+  const hasFacultyInUniversity =  !!universityInfo?.faculties.find(facultyItem => facultyItem.key === facultyId)
+  if(!universityInfo || !hasFacultyInUniversity) { 
+    throw new Error(`deleteFaculty: Invalid data. University ${!!universityInfo}, faculty ${hasFacultyInUniversity}`);
+  }
+
+  const newUniversityInfo = {...universityInfo};
+  const newFaculties = newUniversityInfo.faculties.filter(facultyItem => facultyItem.key !== facultyId);
+  newUniversityInfo.faculties = newFaculties;
+
+
+  await upsertUniversity(newUniversityInfo)
+}
 
 
 /**

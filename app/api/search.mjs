@@ -110,7 +110,7 @@ const getTutors = async (
   universities.forEach((universityItem) => {
     const { abbreviation } = universityItem;
     if (abbreviation) {
-      institutionMap.set(universityItem.key, abbreviation);
+      universityAbbreviationsMap.set(universityItem.key, abbreviation);
     }
   });
 
@@ -208,7 +208,7 @@ const getTutorsInInstitution = async (universityId, facultyId) => {
   const universityAbbreviationsMap = new Map();
 
   if (universityInfo.abbreviation) {
-    institutionMap.set(universityInfo.key, universityInfo.abbreviation);
+    universityAbbreviationsMap.set(universityInfo.key, universityInfo.abbreviation);
   }
 
   const tutorsData = await getAllTutors();
