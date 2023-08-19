@@ -18,6 +18,9 @@ export default function({html, state}) {
         <li>
             <a href="/admin/addTutors" class="linkColor">Batch add tutors</a>
         </li>
+        <li>
+        <a href="/admin/clean" class="linkColor">Clean</a>
+    </li>
     </ul>
     </div>
     `

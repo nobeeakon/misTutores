@@ -82,7 +82,7 @@ export default function ({ html, state }) {
                           Facultad o Instituto
                       </label>
                   </div>
-                  <input type='text' id='faculty-name' name='faculty-name' class="w100" list="faculty-name-list" autocomplete="off"/>
+                  <input type='text' id='faculty-name' name='faculty-name' class="w100" list="faculty-name-list" autocomplete="off" required/>
                   <datalist id="faculty-name-list">
                   </datalist>
   
@@ -100,7 +100,7 @@ export default function ({ html, state }) {
 
               <div class="mb1">
                   <div class="mbe-3">
-                      <label required for='faculty-geographic-state'>
+                      <label  for='faculty-geographic-state'>
                           Estado
                       </label>
                   </div>

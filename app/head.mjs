@@ -2,6 +2,9 @@ import { getStyles }  from '@enhance/arc-plugin-styles'
 
 const { linkTag } = getStyles
 
+const description = `Evalúa tu experiencia con tu tutor de tesis y ayuda a otros estudiantes que se encuentran en el delicado proceso de escoger tutor.`;
+const siteUrl = "https://mistutores.mx/";
+
 export default function Head () {
   return `
     <!DOCTYPE html>
@@ -15,12 +18,17 @@ export default function Head () {
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
      
       <title>Mis Tutores</title>
-      <meta name="description" content="Evalúa tu experiencia con tu tutor de tesis y ayuda a otros estudiantes que se encuentran en el delicado proceso de escoger tutor.">
+      <meta name="description" content="${description}">
 
       ${linkTag()}
-      <link rel="icon" href="/_public/bigT.png"> 
-
+      <link rel="icon" href="/_public/logo_100pxh.ico"> 
       <meta name="google-site-verification" content="7MAL5WdF7qZMA2f7l1g0cStmzJtjYfKxBJiYrBp-Q6s" />
+
+      <meta property="og:title"        content="Mis tutores" />
+      <meta property="og:description"        content="${description}" />
+      <meta property="og:image"              content="${siteUrl}/_public/logo_200pxh.png" />
+      <meta property="og:type" content="article" />
+
       <style>
       body {
         height: 100%;
